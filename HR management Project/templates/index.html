@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="static/css/custom.css">
+
+  {% block title %}Home | {% endblock title %}
+  </head>
+  <body>
+    <center>
+{% block body %}
+
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" >
+  <div  class="carousel-inner">
+    <div class="carousel-item active">
+        <img src="https://source.unsplash.com/1600x500/?stars" class="d-block w-100" alt="...">
+         <div class="carousel-caption d-none d-md-block">
+       <h1><font align="center">{{ v1 }}</font></h1>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://source.unsplash.com/1600x500/?sky" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block" >
+       <h1>{{ v2 }}</h1>
+        
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://source.unsplash.com/1600x500/?moon" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block" >
+       <h1>{{ v3 }}</h1>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br><br><br><br>
+
+<h1>
+  <center><b><font style="font-family: 'Merriweather', serif; color:blue;"><i>New Members in AstronEra Family</i></b><center></h1></font>
+<br><br>
+      <table class="table table-bordered table-hover table-sortable " id="tab_logic">
+        <thead class="thead-dark" class="form-control">
+          <tr >
+           
+            <th class="text-center">
+              Name
+            </th>
+            <th class="text-center">
+              Department
+            </th>
+            <th class="text-center">
+              Designation
+            </th>
+            
+            
+          </tr>
+        </thead>
+      <tbody class="thead-light" class="form-control">
+         {% for i in v4.values %}
+        
+        <tr>
+          
+            <td data-name="name" >
+                {{i.name}}
+            </td>
+             <td data-name="department" >
+                {{i.department}}
+            </td>
+            <td data-name="designation" >
+              {{i.designation}} 
+            </td>
+         </tr>    
+	{% endfor %}
+</table>
+<br><br><br><br>
+<h1>
+  <center><b><font style="font-family: 'Merriweather', serif; color:blue;"><i>Recent Courses</i></b><center></font>
+  
+</h1>
+<br><br>
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" >
+  <div  class="carousel-inner">
+<div class="carousel-item active">
+
+
+<center><iframe width=560 height=315  src="https://www.youtube.com/embed/XTnJuAvHLsY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+<div  class="carousel-item">
+<div class="carousel-caption d-none d-md-block" >
+
+</div>
+
+<center><iframe  width=560 height=315  src="https://www.youtube.com/embed/JALd_8qQdEI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div></div>
+</center>
+<br><br><br><br>
+<h1>
+  <center><b><font style="font-family: 'Merriweather', serif; color:blue;"><i>AstronEra Achievements</i></b><center></font>
+  
+</h1>
+<br><br>
+{% endblock body %}
+
+
+  </body>
+</html>

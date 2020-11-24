@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="static/css/custom.css">
+
+  {% block title %}Work From Home | {% endblock title %}
+  </head>
+  <body>
+    <center>
+{% block body %}
+
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" >
+  <div  class="carousel-inner">
+    <div class="carousel-item active">
+        <img src="https://source.unsplash.com/1600x500/?work-from-home" class="d-block w-100" alt="...">
+         
+    </div>
+    <div class="carousel-item">
+      <img src="https://source.unsplash.com/1600x500/?work-from-home" class="d-block w-100" alt="...">
+      
+    </div>
+    <div class="carousel-item">
+      <img src="https://source.unsplash.com/1600x500/?work-from-home" class="d-block w-100" alt="...">
+      
+    </div>
+  </div>
+</div>
+<br><br><br><br><br><br>
+
+<html>
+<head>
+      <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <style>
+       .container{
+    height: 300px;
+    width: 100%;
+}
+
+#display{
+    width: 100%;
+    font-size: 72px;
+    text-align: center;
+    margin: 0px auto;
+}
+
+.buttons{
+    text-align: center;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+<script type="text/javascript">
+
+
+
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+
+
+let displaySeconds = 0;
+let displayMinutes = 0;
+let displayHours = 0;
+
+
+let interval = null;
+
+
+let status = "stopped";
+
+function stopWatch(){
+
+    seconds++;
+
+
+    if(seconds / 60 === 1){
+        seconds = 0;
+        minutes++;
+
+        if(minutes / 60 === 1){
+            minutes = 0;
+            hours++;
+        }
+
+    }
+
+    if(seconds < 10){
+        displaySeconds = "0" + seconds.toString();
+    }
+    else{
+        displaySeconds = seconds;
+    }
+
+    if(minutes < 10){
+        displayMinutes = "0" + minutes.toString();
+    }
+    else{
+        displayMinutes = minutes;
+    }
+
+    if(hours < 10){
+        displayHours = "0" + hours.toString();
+    }
+    else{
+        displayHours = hours;
+    }
+
+
+    document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
+
+}
+
+
+function startStop(){
+
+    if(status === "stopped"){
+
+
+        interval = window.setInterval(stopWatch, 1000);
+        document.getElementById("startStop").innerHTML = "Stop"; 
+        status="started"   
+         
+    }
+    else{
+
+        window.clearInterval(interval);
+        document.getElementById("startStop").innerHTML = "Start";
+        status = "stopped";
+        let timer=document.getElementById("display").innerHTML;
+         let title=$("#title").val();
+         let description=$("#description").val();
+        var csrftoken=jQuery("[name=csrfmiddlewaretoken]").val();
+        $.ajax({
+            type:"POST",
+            url:"/homemade/",
+            data:{
+            'timer':timer,
+            'title':title,
+            'description':description,
+            },
+            cache:false,
+            headers:{'X-CSRFToken':csrftoken},
+            success:function(data){
+         alert('your entry has been added')
+            }
+        
+        });
+
+
+    }
+
+}
+
+
+function reset(){
+
+    window.clearInterval(interval);
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    document.getElementById("display").innerHTML = "00:00:00";
+    document.getElementById("startStop").innerHTML = "Start";
+
+}
+</script>
+</head>
+<body >
+
+<h1>
+  <center><b><font style="font-family: 'Merriweather', serif; color:blue;"><i>Add Your Work</i></b><center></font>
+  
+</h1>
+
+<form action="" method="POST">
+<div>
+    {% csrf_token %}
+<center>
+<font style="font-family: 'Merriweather', serif; color:black;">
+<b>Title:</b>
+ </font> 
+  
+    <input type="text" name="Title" id='title' placeholder="Title" required>
+    <br><br>
+<font style="font-family: 'Merriweather', serif; color:black;">
+      <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Message:</b>
+  </font> 
+    <textarea rows="5" cols="30" name="description" id='description' placeholder="Enter Your Message" required></textarea>
+        <br>
+    <br>
+
+
+<!--<<center><input type="submit" value="Post" class='btn' style="background-color:#007BFF;width:100px;"/><br><br></center>-->
+
+
+<div>
+
+        <div id="display">
+           <font style="font-family: 'Merriweather', serif; color:blue;"> 00:00:00</font>
+        </div>
+
+        <div class="buttons">
+            <input type="submit"  value="Start" id="startStop" onclick="startStop()"><button id="reset" onclick="reset()">Reset</button></form>
+        </div>
+
+</div>
+</div>
+<!--<input type="submit" value="Post" class='btn' style="background-color:#007BFF;width:100px;"/><br><br>-->
+
+</center>
+</body>
+
+</html>
+{% endblock body %}
+
